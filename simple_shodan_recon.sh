@@ -55,4 +55,4 @@ fi
 
 echo "successfully got shodan results. parsing results..."
 echo "============================"
-zcat recon_$TIMESTAMP/*.json.gz | jq -cr '[ .ip_str, .port, .os, (.domains|sort|join("|")), .product, .version, (if .vulns then (.vulns|keys|sort|join("|")) else "None" end), .timestamp ] | @csv' | sed '1s/^/"ip", "port", "os", "domains", "product", "version", "vulns", "timestamp"\n/' | tee recon_$TIMESTAMP/simple_shodan_recon_$TIMESTAMP.csv
+zcat recon_$TIMESTAMP/*.json.gz | sed -e 's/\\u[0-9A-Fa-f]\{4\}//g' | jq -cr '[ .ip_str, .port, .os, (.domains|sort|join("|")), .product, .version, (if .vulns then (.vulns|keys|sort|join("|")) else "None" end), .timestamp ] | @csv' | sed '1s/^/"ip", "port", "os", "domains", "product", "version", "vulns", "timestamp"\n/' | tee recon_$TIMESTAMP/simple_shodan_recon_$TIMESTAMP.csv
