@@ -8,6 +8,8 @@ Simple Shodan Recon collects
 
 * OS
 
+* Hostnames
+
 * Domains
 
 * Products
